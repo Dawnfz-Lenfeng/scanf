@@ -23,7 +23,7 @@ scanf supports the following formats:
 | `%5s`   | str   | String of up to five characters terminated by whitespace                                                             |
 | `%d`    | int   | An integer                                                                                                           |
 | `%6d`   | int   | Integer with up to six digits                                                                                        |
-| `%f`    | float | A floating-point number                                                                                              |
+| `%f`    | float | A floating-point number, supporting both standard decimal notation and scientific notation (like .6, 3.5, 1.23e-5)   |
 | `%3.5f` | float | Floating-point number with up to three digits before the decimal point and up to five digits after (not recommended) |
 | `%.5f`  | float | Floating-point number with up to five digits after the decimal point (recommended)                                   |
 | `%x`    | int   | A hexadecimal number                                                                                                 |
@@ -64,7 +64,7 @@ If you want to output in a specific base, you can convert it yourself.
 ```python
 _, f = scanf('%d%2.1f', '202417.29')
 print(f)
-## expect 17.2
+# expect 17.2
 ```
 ```pycon
 # But actually
@@ -103,7 +103,13 @@ This occurs because the current implementation does not support **flexible white
 For more information see:
 * https://en.wikipedia.org/wiki/Scanf
 * https://docs.python.org/3.12/library/re.html
+* https://github.com/Dawnfz-Lenfeng/scanf/
 
 ## Releases
-### 0.1.0: 2024-01-29
+### 0.1.0-0.2.0: 2024-01-29
 * Initial release 
+* Updated test files
+* Added support for floating-point numbers in scientific notation
+* Added support for integers and floating-point numbers with optional leading '+' sign
+* Added support for matching `Inf` and `NaN`
+* Resolved the issue where special characters in `format_s` could be escaped

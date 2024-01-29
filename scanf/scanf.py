@@ -16,18 +16,19 @@ _format_regexp = [(re.compile(token), regexp) for token, regexp in (
     ('%c', r'(.)'),
     (r'%(\d+)c', r'(.{1,\1})'),
 
-    ('%d', r'(-?\\d+)'),
-    (r'%(\d+)d', r'(-?\\d{1,\1})'),
+    ('%d', r'([+-]?\\d+)'),
+    (r'%(\d+)d', r'([+-]?\\d{1,\1})'),
 
     ('%s', r'(\\S+)'),
     (r'%(\d+)s', r'(\\S{1,\1})'),
 
-    ('%f', r'(-?\\d+\\.\\d+)'),
-    (r'%(\d*)\.(\d*)f', r'(-?\\d{1,\1}\\.\\d{1,\2})'),
+    # support scientific notation, inf and nan
+    ('%f', r'([+-]?\\d*\\.\\d+(?:[eE][+-]?\\d+)?|[+-]?inf|[+-]?Inf|[+-]?nan|[+-]?NaN)'),
+    (r'%(\d*)\\.(\d*)f', r'([+-]?\\d{0,\1}\\.\\d{1,\2})'),
 
-    ('%o', r'(-?0[0-7]+)'),
-    ('%x', r'(-?0x[0-9a-fA-F]+)'),
-    ('%b', r'(-?0b[01]+)')
+    ('%o', r'([+-]?0o[0-7]+)'),
+    ('%x', r'([+-]?0x[0-9a-fA-F]+)'),
+    ('%b', r'([+-]?0b[01]+)')
 )]
 
 _format_cast = {
@@ -69,12 +70,21 @@ def scanf(format_s: str, input_s=None):
     if input_s is None:
         input_s = input()
 
+    # Avoid special characters being escaped
+    format_s = re.escape(format_s)
+
+    # Avoid '%' being escaped
+    format_s = format_s.replace('%%', '%-')
+
     # Find matching format tokens
     match_tokens = [match.group() for match in _format_tokens.finditer(format_s)]
 
     # Convert the format string into a regular expression pattern
     for token, regexp in _format_regexp:
         format_s = token.sub(regexp, format_s)
+
+    # Notice that '-' has been replaced with '\-' so there can't be an additional '%-'
+    format_s = format_s.replace('%-', '%')
 
     # Perform regular expression matching
     matches = re.match(format_s, input_s)
@@ -96,5 +106,8 @@ def scanf(format_s: str, input_s=None):
 
 
 if __name__ == "__main__":
-    a = scanf('%x', '0x134d701something else')
-    print(a)
+    import unittest
+    from test import TestScanf
+
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestScanf)
+    unittest.TextTestRunner(verbosity=2).run(suite)
