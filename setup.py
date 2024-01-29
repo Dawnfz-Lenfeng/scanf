@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='scanf',
-    version='0.1.0',
+    version='0.2.0',
     author='Dawnfz-Lenfeng',
     author_email='lingfengbut@qq.com',
     description='A scanf for python based on RE',
