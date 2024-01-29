@@ -76,11 +76,11 @@ In this case, `%d` matches `20241` instead of `2024`, causing the subsequent `%2
 
 To address this issue, you can use `%4d%.1f` instead of `%d%2.1f`.
 ```python
-_, f = scanf('%4d%.5f', '202417.2')
+_, f = scanf('%4d%.1f', '202417.2')
 print(f)
 ```
 ```pycon
->>> 17.29
+>>> 17.2
 ```
 That is why width specification for floats like `%.3f` is more recommended.
 
