@@ -106,10 +106,16 @@ For more information see:
 * https://github.com/Dawnfz-Lenfeng/scanf/
 
 ## Releases
-### 0.1.0-0.2.0: 2024-01-29
-* Initial release 
+### 0.2.0: 2024-01-29
 * Updated test files
 * Added support for floating-point numbers in scientific notation
 * Added support for integers and floating-point numbers with optional leading '+' sign
-* Added support for matching `Inf` and `NaN`
-* Resolved the issue where special characters in `format_s` could be escaped
+* Added support for matching Inf and NaN
+* Resolved the issue where special characters in format_s could be escaped
+
+### 0.1.0: 2024-01-29
+* Initial release
+* Basic functionality implemented
+* Supports various data types, including int, float, str.
+* Provides different formatting options such as width, precision, radix, etc.
+* Documentation updated with basic usage instructions
