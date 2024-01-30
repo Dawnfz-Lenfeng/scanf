@@ -71,10 +71,8 @@ def scanf(format_s: str, input_s=None):
         input_s = input()
 
     # Avoid special characters being escaped
-    format_s = re.escape(format_s)
-
     # Avoid '%' being escaped
-    format_s = format_s.replace('%%', '%-')
+    format_s = re.escape(format_s).replace('%%', '%-')
 
     # Find matching format tokens
     match_tokens = [match.group() for match in _format_tokens.finditer(format_s)]
