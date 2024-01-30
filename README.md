@@ -85,7 +85,7 @@ print(f)
 That is why width specification for floats like `%.3f` is more recommended.
 
 ---
-* **About match whitespace**
+* **About matching whitespace**
 ```python
 scanf('%d%d', '12 34')
 # expect (12, 34)
